@@ -13,7 +13,7 @@ func updateMessage(s string) {
 	msg = s
 }
 
-func printMessage(wg *sync.WaitGroup) {
+func printMessage() {
 	fmt.Println(msg)
 }
 
@@ -29,7 +29,7 @@ func main() {
 
 	for _, v := range phrases {
 		go updateMessage(v)
-		printMessage(&wg)
+		printMessage()
 
 	}
 	wg.Wait()

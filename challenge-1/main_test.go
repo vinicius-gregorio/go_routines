@@ -1,31 +1,30 @@
 package main
 
 import (
+	"io"
+	"os"
+	"strings"
 	"testing"
 )
 
 func Test_printMessage(t *testing.T) {
-	// stdOut := os.Stdout
+	stdOut := os.Stdout
 
-	// r, w, _ := os.Pipe()
-	// os.Stdout = w
+	r, w, _ := os.Pipe()
+	os.Stdout = w
 
-	// var wg sync.WaitGroup
+	msg = "Hello, world!"
+	printMessage()
+	_ = w.Close()
 
-	// wg.Add(1)
+	res, _ := io.ReadAll(r)
+	output := string(res)
 
-	// wg.Wait()
+	os.Stdout = stdOut
 
-	// _ = w.Close()
-
-	// res, _ := io.ReadAll(r)
-	// output := string(res)
-
-	// os.Stdout = stdOut
-
-	// if !strings.Contains(output, "First print") {
-	// 	t.Errorf("Expected to find 'First print' in the output, but got %s", output)
-	// }
+	if !strings.Contains(output, "Hello, world") {
+		t.Errorf("Expected to find 'First print' in the output, but got %s", output)
+	}
 
 }
 
